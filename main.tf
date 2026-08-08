@@ -9,7 +9,7 @@ terraform {
 
 provider "azurerm" {
   features {}
-  subscription_id = "110285e0-ac2a-4940-b008-38ea221ac9a9"
+  subscription_id = "7d2b7ec8-30a6-4bc2-9251-5eb16f970054"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -48,7 +48,7 @@ resource "azurerm_storage_account" "stg1" {
 }
 
 
-resource azurerm_resource_group "rg1" {
+resource "azurerm_resource_group" "rg1" {
   name = "aamit"
   location = "eastus"
 }
