@@ -46,21 +46,8 @@ resource "azurerm_storage_account" "stg1" {
   account_replication_type = "GRS"
   
 }
-resource "azurerm_resource_group" "rg1" {
-  count = length(var.rg_name)
-  name     = var.rg_name[count.index]
-  location = var.rg_location
-}
 
-resource "azurerm_storage_account" "stg1" {
-  count = length(var.stg_name)
-  name                     = var.stg_name[count.index]
-  resource_group_name      = azurerm_resource_group.rg1[count.index].name
-  location                 = azurerm_resource_group.rg1[count.index].location
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
-  
-}
+
 resource azurerm_resource_group "rg1" {
   name = "aamit"
   location = "eastus"
