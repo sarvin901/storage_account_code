@@ -5,4 +5,6 @@ variable "rg_name" {
 variable "rg_location" {
   type = string
 }
-
+variable "stg_name" {
+  type = list(string)
+}

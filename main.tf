@@ -52,7 +52,7 @@ resource "azurerm_resource_group" "rg1" {
   location = var.rg_location
 }
 
-resoucre "azurerm_storage_account" "stg1" {
+resource "azurerm_storage_account" "stg1" {
   count = length(var.stg_name)
   name                     = var.stg_name[count.index]
   resource_group_name      = azurerm_resource_group.rg1[count.index].name
