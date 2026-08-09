@@ -2,13 +2,13 @@ name: Terraform CI/CD
 
 on:
 
-  # Feature branch par push hone par CI chalega
+  # Feature branch par push hone par Plan chalega
   push:
     branches:
       - 'feature/**'
       - main
 
-  # Feature branch se main ke liye PR banne par CI chalega
+  # Feature branch se main ke liye PR banne par Plan chalega
   pull_request:
     branches:
       - main
@@ -16,11 +16,21 @@ on:
   # Manual run
   workflow_dispatch:
 
+
 jobs:
 
+  # ==========================================================
+  # TERRAFORM PLAN
+  # ==========================================================
   terraform-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
+
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     steps:
 
@@ -29,8 +39,7 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-        
-     
+
       - name: Terraform Init
         run: terraform init
 
@@ -41,20 +50,27 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        env:
-          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         run: terraform plan
 
 
+  # ==========================================================
+  # TERRAFORM APPLY
+  # ==========================================================
   terraform-apply:
     name: Terraform Apply
     runs-on: ubuntu-latest
 
-    # Only run after code is pushed/merged to main
+    # Apply ONLY when code is pushed/merged into main
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    # Apply tabhi chale jab Plan successful ho
+    needs: terraform-plan
+
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     steps:
 
