@@ -48,6 +48,23 @@ resource "azurerm_storage_account" "stg1" {
 
 }
 
+resource "azurerm_resource_group" "rg2" {
+  name     = "amitest1234"
+  location = "eastus"
+}
 
+resource "azurerrm_virtual_network" "vnet" {
+  depends_on          = [azurerm_resource_group.rg2]
+  name                = "amitestvnet"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.rg2.location
+  resource_group_name = azurerm_resource_group.rg2.name
+}
 
-
+resource "azurerm_subnet" "subnet" {
+  depends_on          = [azurerm_virtual_network.vnet, azurerm_resource_group.rg2]
+  name                 = "amitestsubnet"
+  resource_group_name  = azurerm_resource_group.rg2.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
