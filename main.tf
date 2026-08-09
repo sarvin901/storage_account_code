@@ -17,7 +17,7 @@ resource "azurerm_resource_group" "rg" {
   location = "eastus"
 }
 resource "azurerm_resource_group" "rg1" {
-  name     = "amitest"
+  name     = "amitest123"
   location = "eastus"
 }
 
@@ -33,7 +33,7 @@ resource "azurerm_storage_account" "sstss" {
 resource "azurerm_storage_account" "ssts1" {
   depends_on               = [azurerm_resource_group.rg1]
   name                     = "amittestsa1233242"
-  resource_group_name      = "amitest1"
+  resource_group_name      = "amitest123"
   location                 = "eastus"
   account_tier             = "Standard"
   account_replication_type = "GRS"
@@ -41,7 +41,7 @@ resource "azurerm_storage_account" "ssts1" {
 resource "azurerm_storage_account" "stg1" {
   depends_on               = [azurerm_resource_group.rg1]
   name                     = "amitstg1234445"
-  resource_group_name      = "amitest"
+  resource_group_name      = "amitest123"
   location                 = "eastus"
   account_tier             = "Standard"
   account_replication_type = "GRS"
