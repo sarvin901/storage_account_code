@@ -32,14 +32,15 @@ resource "azurerm_storage_account" "sstss" {
 
 resource "azurerm_storage_account" "ssts1" {
   depends_on               = [azurerm_resource_group.rg1]
-  name                     = "amittestsa1234"
+  name                     = "amittestsa1233242"
   resource_group_name      = "amitest1"
   location                 = "eastus"
   account_tier             = "Standard"
   account_replication_type = "GRS"
 }
 resource "azurerm_storage_account" "stg1" {
-  name                     = "amitstg1"
+  depends_on               = [azurerm_resource_group.rg1]
+  name                     = "amitstg1234445"
   resource_group_name      = "amitest"
   location                 = "eastus"
   account_tier             = "Standard"
