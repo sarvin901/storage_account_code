@@ -9,7 +9,7 @@ terraform {
 
 provider "azurerm" {
   features {}
-  subscription_id = "110285e0-ac2a-4940-b008-38ea221ac9a9"
+  subscription_id = "7d2b7ec8-30a6-4bc2-9251-5eb16f970054"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -44,33 +44,9 @@ resource "azurerm_storage_account" "stg1" {
   location                 = "eastus"
   account_tier             = "Standard"
   account_replication_type = "GRS"
-  
-}
-resource "azurerm_resource_group" "rg1" {
-  count = length(var.rg_name)
-  name     = var.rg_name[count.index]
-  location = var.rg_location
-}
 
-resoucre "azurerm_storage_account" "stg1" {
-  count = length(var.stg_name)
-  name                     = var.stg_name[count.index]
-  resource_group_name      = azurerm_resource_group.rg1[count.index].name
-  location                 = azurerm_resource_group.rg1[count.index].location
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
-  
-}
-resource azurerm_resource_group "rg1" {
-  name = "aamit"
-  location = "eastus"
 }
 
 
-resource "azurerm_virtual_network" "vnet" {
-  name                = "amivnet1"
-  resource_group_name = azurerm_resource_group.rg1.name
-  location            = azurerm_resource_group.rg1.location
 
-  address_space = ["10.0.0.0/16"]
-}
+
