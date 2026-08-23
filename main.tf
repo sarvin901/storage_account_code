@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     azurerm = {
-      source  = "hashicorp/azurerm"
+      source = "hashicorp/azurerm"
       version = "4.68.0"
     }
   }
@@ -48,6 +48,10 @@ resource "azurerm_storage_account" "stg1" {
 
 }
 
-
+resource "azurerm_resource_group" "rarf" {
+  name = "aDF"
+  location = "central Inida"
+  
+}
 
 
