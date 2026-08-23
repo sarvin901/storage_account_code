@@ -1,5 +1,5 @@
 name: Terraform CI/CD
-
+run-name: Deploy the dev
 on:
 
   # Feature branch par push hone par Plan chalega
