@@ -13,7 +13,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "noortest"
+  name     = "nrtest"
   location = "eastus"
 }
 resource "azurerm_resource_group" "rg1" {
