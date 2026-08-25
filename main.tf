@@ -64,6 +64,9 @@ resource "azurerm_subnet" "subnet" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
+
+
+
 resource "azurerm_resource_group" "arvi" {
   name = "arvind1"
   location = "south india"
