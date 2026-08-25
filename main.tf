@@ -48,8 +48,6 @@ resource "azurerm_storage_account" "stg1" {
 
 }
 
-<<<<<<< HEAD
-=======
 resource "azurerm_resource_group" "rarf" {
   name = "aDF"
   location = "Central India"
