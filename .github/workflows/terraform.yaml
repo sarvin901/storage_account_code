@@ -1,5 +1,7 @@
 name: Terraform CI/CD
+
 run-name: Deploy the dev
+
 on:
 
   # Feature branch par push hone par Plan chalega
@@ -34,20 +36,68 @@ jobs:
 
     steps:
 
+      # ------------------------------------------------------
+      # Checkout
+      # ------------------------------------------------------
       - name: Checkout Code
         uses: actions/checkout@v4
 
+
+      # ------------------------------------------------------
+      # Setup Terraform
+      # ------------------------------------------------------
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+
+      # ------------------------------------------------------
+      # Terraform Init
+      # ------------------------------------------------------
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Format
-        run: terraform fmt -recursive
 
+      # ------------------------------------------------------
+      # Terraform Format Check
+      # ------------------------------------------------------
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
+
+
+      # ------------------------------------------------------
+      # Terraform Validate
+      # ------------------------------------------------------
       - name: Terraform Validate
         run: terraform validate
+
+
+      # ======================================================
+      # TFLINT
+      # ======================================================
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Initialize TFLint
+        run: tflint --init
+
+      - name: Run TFLint
+        run: tflint --recursive
+
+
+      # ======================================================
+      # TFSEC
+      # ======================================================
+
+      - name: Run tfsec
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          soft_fail: false
+
+
+      # ======================================================
+      # TERRAFORM PLAN
+      # ======================================================
 
       - name: Terraform Plan
         run: terraform plan
