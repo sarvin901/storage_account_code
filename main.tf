@@ -58,5 +58,22 @@ resource "azurerm_resource_group" "rrf" {
   location = "Central India"
   
 }
+>>>>>>> 9dfd7ee (modified)
 
 
+resource "azurerm_subnet" "subnet" {
+  depends_on          = [azurerm_virtual_network.vnet]
+  name                 = "amitestsubnet"
+  resource_group_name  = azurerm_resource_group.rg2.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
+
+
+
+
+resource "azurerm_resource_group" "arvi" {
+  name = "arvind1"
+  location = "south india"
+  
+}
