@@ -49,7 +49,12 @@ resource "azurerm_storage_account" "stg1" {
 }
 
 resource "azurerm_resource_group" "rarf" {
-  name = "aDF"
+  name = "dDF"
+  location = "Central India"
+  
+}
+resource "azurerm_resource_group" "rrf" {
+  name = "dDFa"
   location = "Central India"
   
 }
